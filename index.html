@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="assets/css/index.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container" onmousemove="activecircle()">
+        <div class="area_block">
+            <div class="img_self">
+                <div class="img_square">
+                    <img src="assets/images/1.jpg" alt="" width="100%"></img>
+                </div>
+            </div>
+            <div class="word_self">
+                <p>姓名：江俊佑</p>
+                <p>班級：資管二乙</p>
+                <p>學號：10744207</p>
+                <p>口號：麻雀雖小，武藏小次郎。</p>
+                <a href="https://s10744207.github.io/10744207/Untitled-1.html" target="_blank" class="person_link">個人網站</a>
+            </div>
+            <div class="cleaner"></div>
+        </div>
+        <div class="area_block">
+            <h1>個人專業技能</h1>
+            <div class="circle_bar_area">
+                <div class="single_circle_bar">
+                    <p>專業能力</p>
+                    <div class="row_item_4">
+                        <span class="total_circle">
+                            <canvas id="canvas" width="150" height="150" style="margin: auto;"></canvas>
+                        </span>
+                    </div>
+                </div>
+                <div class="single_circle_bar">
+                    <p>溝通能力</p>
+                    <div class="row_item_4">
+                        <span class="total_circle">
+                            <canvas id="canvas2" width="150" height="150" style="margin: auto;"></canvas>
+                        </span>
+                    </div>
+                </div>
+                <div class="single_circle_bar">
+                    <p>文書能力</p>
+                    <div class="row_item_4">
+                        <span class="total_circle">
+                            <canvas id="canvas3" width="150" height="150" style="margin: auto;"></canvas>
+                        </span>
+                    </div>
+                </div>
+                <div class="single_circle_bar">
+                    <p>表達能力</p>
+                    <div class="row_item_4">
+                        <span class="total_circle">
+                            <canvas id="canvas4" width="150" height="150" style="margin: auto;"></canvas>
+                        </span>
+                    </div>
+                </div>
+                <div class="cleaner"></div>
+            </div>
+        </div>
+        <div class="area_block">
+            <h1>個人程式能力</h1>
+            <div class="bar_area">
+                <p class="bar_title">c#</p>
+                <div class="single_bar_area">
+                    <div class="bar_container">
+                        <div class="skills cs">70%</div>
+                    </div>
+                </div>
+                <div class="cleaner"></div>
+            </div>
+            <div>
+                <p class="bar_title">Java</p>
+                <div class="single_bar_area">
+                    <div class="bar_container">
+                        <div class="skills java">60%</div>
+                    </div>
+                </div>
+                <div class="cleaner"></div>
+            </div>
+            <div>
+                <p class="bar_title">HTML5</p>
+                <div class="single_bar_area">
+                    <div class="bar_container">
+                        <div class="skills html">65%</div>
+                    </div>
+                </div>
+                <div class="cleaner"></div>
+            </div>
+            <div>
+                <p class="bar_title">CSS3</p>
+                <div class="single_bar_area">
+                    <div class="bar_container">
+                        <div class="skills css">65%</div>
+                    </div>
+                </div>
+                <div class="cleaner"></div>
+            </div>
+        </div>
+        <div class="area_block">
+            <h1>大學經歷</h1>
+            <div class="timeline">
+                <div class="tl_container left">
+                  <div class="content">
+                    <h2>大一(上)</h2>
+                    <p>管理學：您的一票，決定愛的力量</p>
+                  </div>
+                </div>
+                <div class="tl_container right">
+                  <div class="content">
+                    <h2>大一(下)</h2>
+                    <p>企業概論：沐風商行</p>
+                  </div>
+                </div>
+                <div class="tl_container left">
+                  <div class="content">
+                    <h2>大二(上)</h2>
+                    <p>網路程式設計：i-Drink</p>
+                  </div>
+                </div>
+                <div class="tl_container right">
+                  <div class="content">
+                    <h2>大二(下)</h2>
+                    <p>多媒體程式設計：i ♡ computer</p>
+                  </div>
+                </div>
+                
+              </div>
+        </div>
+
+
+
+
+
+        <script>
+            class DrawLoad {
+                constructor(canvas) {
+                    this.per = 0;
+                    this.canvas = document.getElementById(canvas); //获取canvas元素
+                    this.context = this.canvas.getContext('2d'); //获取画图环境，指明为2d
+                    this.centerX = this.canvas.width / 2; //Canvas中心点x轴坐标
+                    this.centerY = this.canvas.height / 2; //Canvas中心点y轴坐标
+                    this.rad = Math.PI * 2 / 100; //将360度分成100份，那么每一份就是this.rad度
+                    this.drawFrame();
+                }
+                setPer(per) {
+                    this.per = per;
+                }
+                clearAnimation() {
+                    window.cancelAnimationFrame(this.raf_id);
+                }
+                //繪製FRONT COLOR
+                currentCircle() {
+                    this.context.save();
+                    this.context.strokeStyle = "#2A2A2A"; //FRONT COLOR
+                    this.context.lineWidth = 8; //LINE WIDTH
+                    this.context.beginPath(); //START
+                    this.context.arc(this.centerX, this.centerY, 50, -Math.PI / 2, -Math.PI / 2 + this.per * this.rad, false);
+                    //用于绘制圆弧this.context.arc(x坐标，y坐标，半径，起始角度，终止角度，顺时针/逆时针)
+                    this.context.stroke(); //绘制
+                    this.context.closePath(); //END
+                    this.context.restore();
+                }
+                //繪製BACK COLOR
+                bgCircle() {
+                    this.context.save();
+                    this.context.beginPath();
+                    this.context.lineWidth = 8; //LINE WIDTH
+                    this.context.strokeStyle = "#C4C4C4";
+                    this.context.arc(this.centerX, this.centerY, 50, 0, Math.PI * 2, false);
+                    this.context.stroke();
+                    this.context.closePath();
+                    this.context.restore();
+                }
+                //百分比文字
+                text() {
+                    this.context.save();
+                    this.context.fillStyle = "#2A2A2A"; //设置描边样式
+                    this.context.font = "20px Arial"; //设置字体大小和字体
+                    //绘制字体，并且指定位置
+                    this.context.fillText(this.per.toFixed(0) + "%", this.centerX - 16, this.centerY + 6);
+                    // this.context.stroke(); //执行绘制
+                    this.context.restore();
+                }
+                //动画循环
+                drawFrame() {
+                    this.raf_id = window.requestAnimationFrame(this.drawFrame.bind(this));
+                    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    this.bgCircle();
+                    this.text();
+                    this.currentCircle();
+                };
+            }
+            //偵測器啟用動畫
+            var times = 0;
+            function activecircle() {
+                times++;
+                if (times <= 1)
+                    startcircle();
+            }
+            function startcircle() {
+                const dl = new DrawLoad('canvas');
+                let i = 0;
+                let iv = Number;
+                iv = setInterval(() => {
+                    dl.setPer(++i);
+                    if (i > 50) {
+                        clearInterval(iv); // 清除
+                        dl.clearAnimation(); //清除动画刷新
+                    }
+                }, 20);
+                const dl2 = new DrawLoad('canvas2');
+                let i2 = 0;
+                let iv2 = Number;
+                iv2 = setInterval(() => {
+                    dl2.setPer(++i2);
+                    if (i2 > 70) {
+                        clearInterval(iv2); // 清除
+                        dl2.clearAnimation(); //清除动画刷新
+                    }
+                }, 20);
+                const dl3 = new DrawLoad('canvas3');
+                let i3 = 0;
+                let iv3 = Number;
+                iv3 = setInterval(() => {
+                    dl3.setPer(++i3);
+                    if (i3 > 80) {
+                        clearInterval(iv3); // 清除
+                        dl3.clearAnimation(); //清除动画刷新
+                    }
+                }, 20);
+                const dl4 = new DrawLoad('canvas4');
+                let i4 = 0;
+                let iv4 = Number;
+                iv4 = setInterval(() => {
+                    dl4.setPer(++i4);
+                    if (i4 > 70) {
+                        clearInterval(iv4); // 清除
+                        dl4.clearAnimation(); //清除动画刷新
+                    }
+                }, 20);
+            }   
+        </script>
+        <script>
+            var acc = document.getElementsByClassName("total_title");
+            var i;
+            for (i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
+                    if (panel.style.display === "block") {
+                        panel.style.display = "none";
+                    } else {
+                        panel.style.display = "block";
+                    }
+                });
+            }
+        </script>
+    </div>
+</body>
+
+</html>
